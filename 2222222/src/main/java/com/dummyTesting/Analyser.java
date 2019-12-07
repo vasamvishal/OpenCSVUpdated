@@ -30,7 +30,8 @@ public class Analyser {
                 list.add(data);
                 noOfRecord++;
             }
-            return noOfRecord;
+            sortThisListBasedOnStateName(list);
+            WriteToJson(list);
         } catch (NoSuchFileException e) {
             e.printStackTrace();
         } catch (RuntimeException e) {
@@ -43,4 +44,6 @@ public class Analyser {
             writer.write(json);
             writer.close();
         }
-    }
+        private static void sortThisListBasedOnStateName(List<StateCensusData> censusList) {
+            Comparator<StateCensusData> c = (s1, s2) -> s1.getState().compareTo(s2.getState());
+        }

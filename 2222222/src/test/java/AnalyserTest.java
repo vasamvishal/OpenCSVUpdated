@@ -52,4 +52,16 @@ public class AnalyserTest {
             Assert.assertEquals(CSVFileException.ExceptionType.RUNTIME_ERROR, e.type);
         }
     }
+
+    @Test
+    public void ShouldReturn_Values_inJson_file() throws IOException, ClassNotFoundException {
+        try {
+            Analyser analyser = new Analyser();
+            analyser.csvFileRecording("/home/user/Pictures/StateCensusData.csv", "com.dummytesting.StateCensusData");
+        } catch (CSVFileException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
