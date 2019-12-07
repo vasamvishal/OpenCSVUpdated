@@ -13,9 +13,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Analyser {
-    private static String SAMPLE_JSON_FILE_PATH = "/home/user/Picture/PopulationData.json";
+    private static String SAMPLE_JSON_FILE_PATH = "/home/user/Picture/AreaInSqKm.json";
 
-    public int csvFileRecording(String SAMPLE_CSV_FILE_PATH, String POJO) throws CSVFileException, IOException, ClassNotFoundException {
+    public int csvFileloading(String SAMPLE_CSV_FILE_PATH, String POJO) throws CSVFileException, IOException, ClassNotFoundException {
         System.out.println(SAMPLE_CSV_FILE_PATH);
         int noOfRecord = 0;
         try {
@@ -33,6 +33,9 @@ public class Analyser {
             }
             sortThisListBasedOnStateName(list);
             sortThisListBasedOnStatePopulation(list);
+            sortThisListBasedOnDensityPerSqKmPopulation(list);
+            sortThisListBasedOnAreaPerSqKmPopulation(list);
+
             WriteToJson(list);
         } catch (NoSuchFileException e) {
             e.printStackTrace();
@@ -52,5 +55,11 @@ public class Analyser {
         private static void sortThisListBasedOnStatePopulation (List < StateCensusData > censusList) {
             Comparator<StateCensusData> c = Comparator.comparing(StateCensusData::getPopulation);
             censusList.sort(c);
+        }
+        private static void sortThisListBasedOnDensityPerSqKmPopulation (List < StateCensusData > censusList) {
+            Comparator<StateCensusData> c = (s1, s2) -> Integer.parseInt(s2.getDensityPerSqKm()) - Integer.parseInt(s1.getDensityPerSqKm());
+        }
+        private static void sortThisListBasedOnAreaPerSqKmPopulation (List < StateCensusData > censusList) {
+            Comparator<StateCensusData> c = (s1, s2) -> Integer.parseInt(s2.getAreaInSqKm()) - Integer.parseInt(s1.getAreaInSqKm());
         }
     }
