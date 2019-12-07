@@ -32,4 +32,14 @@ public class AnalyserTest {
             Assert.assertEquals(CSVFileException.ExceptionType.RUNTIME_ERROR, e.type);
         }
     }
+
+    @Test
+    public void ShouldCatchException_forImproperDelimiter() throws CSVFileException, IOException, ClassNotFoundException {
+        try {
+            Analyser analyser = new Analyser();
+            analyser.csvFileRecording("/home/user/Pictures/StateCensusDataDuplicate.csv", "com.dummytesting.StateCode");
+        } catch (CSVFileException e) {
+            Assert.assertEquals(CSVFileException.ExceptionType.RUNTIME_ERROR, e.type);
+        }
+    }
 }
