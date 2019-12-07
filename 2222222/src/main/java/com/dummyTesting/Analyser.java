@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Analyser {
-
+    private static String SAMPLE_JSON_FILE_PATH = "/home/user/Pictures/PopulationData.json";
     public int csvFileRecording(String SAMPLE_CSV_FILE_PATH, String POJO) throws CSVFileException, IOException, ClassNotFoundException {
         System.out.println(SAMPLE_CSV_FILE_PATH);
         int noOfRecord = 0;
@@ -36,5 +36,11 @@ public class Analyser {
         } catch (RuntimeException e) {
             throw new CSVFileException("Please enter proper fileName Or Delimiter Problem Or Header Problem ", CSVFileException.ExceptionType.RUNTIME_ERROR);
         }
+        private static void WriteToJson (List < StateCensusData > list) throws IOException {
+            Gson gson = new Gson();
+            String json = gson.toJson(list);
+            FileWriter writer = new FileWriter(SAMPLE_JSON_FILE_PATH);
+            writer.write(json);
+            writer.close();
+        }
     }
-}
