@@ -14,12 +14,22 @@ public class AnalyserTest {
     }
 
     @Test
-    public void shoulReturnSad_forImproperFile() throws IOException, ClassNotFoundException {
+    public void shoulReturnException_forImproperFile() throws IOException, ClassNotFoundException {
         try {
             Analyser stateCensusAnalyser = new Analyser();
             stateCensusAnalyser.csvFileRecording("/home/user/PicturesStateCode.csv", "com.dummytesting.StateCensusData");
         } catch (CSVFileException e) {
             Assert.assertEquals(CSVFileException.ExceptionType.NO_SUCHFILE, e.type);
+        }
+    }
+
+    @Test
+    public void shoulReturnExxception_forInCorrectType() throws IOException, ClassNotFoundException {
+        try {
+            Analyser stateCensusAnalyser = new Analyser();
+            stateCensusAnalyser.csvFileRecording("/home/user/PicturesStateCode.csv", "com.dummytesting.StateCensusData");
+        } catch (CSVFileException e) {
+            Assert.assertEquals(CSVFileException.ExceptionType.RUNTIME_ERROR, e.type);
         }
     }
 }
