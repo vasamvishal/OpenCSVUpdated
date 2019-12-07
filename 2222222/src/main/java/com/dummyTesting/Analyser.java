@@ -13,7 +13,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Analyser {
-    private static String SAMPLE_JSON_FILE_PATH = "/home/user/Pictures/PopulationData.json";
+    private static String SAMPLE_JSON_FILE_PATH = "/home/user/Picture/PopulationData.json";
+
     public int csvFileRecording(String SAMPLE_CSV_FILE_PATH, String POJO) throws CSVFileException, IOException, ClassNotFoundException {
         System.out.println(SAMPLE_CSV_FILE_PATH);
         int noOfRecord = 0;
@@ -31,6 +32,7 @@ public class Analyser {
                 noOfRecord++;
             }
             sortThisListBasedOnStateName(list);
+            sortThisListBasedOnStatePopulation(list);
             WriteToJson(list);
         } catch (NoSuchFileException e) {
             e.printStackTrace();
@@ -44,6 +46,11 @@ public class Analyser {
             writer.write(json);
             writer.close();
         }
-        private static void sortThisListBasedOnStateName(List<StateCensusData> censusList) {
+        private static void sortThisListBasedOnStateName (List < StateCensusData > censusList) {
             Comparator<StateCensusData> c = (s1, s2) -> s1.getState().compareTo(s2.getState());
         }
+        private static void sortThisListBasedOnStatePopulation (List < StateCensusData > censusList) {
+            Comparator<StateCensusData> c = Comparator.comparing(StateCensusData::getPopulation);
+            censusList.sort(c);
+        }
+    }
